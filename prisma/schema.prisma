@@ -14,4 +14,15 @@ model User {
   lastName     String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  tickets      Ticket[]
+}
+
+model Ticket {
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  author       User     @relation(fields: [authorId], references: [id])
+  authorId     Int
 }
