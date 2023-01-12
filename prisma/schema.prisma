@@ -16,6 +16,17 @@ model ClientUser {
   updatedAt      DateTime  @updatedAt
   comments       Comment[]
   createdTickets Ticket[]  @relation(name: "ticketCreatedBy")
+  company        Company   @relation(fields: [companyId], references: [id])
+  companyId      Int
+}
+
+model Company {
+  id        Int          @id @default(autoincrement())
+  name      String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  users     ClientUser[]
+  projects  Project[]
 }
 
 model SupportUser {
@@ -31,6 +42,17 @@ model SupportUser {
   comments        Comment[]
   expertises      Expertise[]
   assignedTickets Ticket[]    @relation(name: "ticketAssignedTo")
+  team            Team        @relation(fields: [teamId], references: [id])
+  teamId          Int
+}
+
+model Team {
+  id        Int           @id @default(autoincrement())
+  name      String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  users     SupportUser[]
+  tickets   Ticket[]
 }
 
 model Expertise {
@@ -59,6 +81,8 @@ model Ticket {
   createdById  Int
   assignedTo   SupportUser    @relation(fields: [assignedToId], references: [id], name: "ticketAssignedTo")
   assignedToId Int
+  team         Team           @relation(fields: [teamId], references: [id])
+  teamId       Int
 }
 
 model Attachment {
@@ -90,6 +114,8 @@ model Project {
   updatedAt  DateTime   @updatedAt
   tickets    Ticket[]
   categories Category[]
+  company    Company    @relation(fields: [companyId], references: [id])
+  companyId  Int
 }
 
 model Category {
