@@ -23,7 +23,7 @@ model SupportUser {
   email           String      @unique
   firstName       String
   lastName        String
-  userType        UserType    @default(support)
+  userType        UserType    @default(Support)
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
   role            Role        @relation(fields: [roleId], references: [id])
@@ -110,10 +110,10 @@ model Role {
 }
 
 enum UserType {
-  agent
-  support
-  manager
-  administrator
+  Agent
+  Support
+  Manager
+  Administrator
 }
 
 enum TicketStatus {
