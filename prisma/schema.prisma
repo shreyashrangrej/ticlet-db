@@ -10,6 +10,7 @@ datasource db {
 model ClientUser {
   id             Int       @id @default(autoincrement())
   email          String    @unique
+  phone          String    @unique
   firstName      String
   lastName       String
   createdAt      DateTime  @default(now())
@@ -32,6 +33,7 @@ model Company {
 model SupportUser {
   id              Int         @id @default(autoincrement())
   email           String      @unique
+  phone           String      @unique
   firstName       String
   lastName        String
   userType        UserType    @default(Support)
